@@ -1,45 +1,43 @@
-README
-Citations Extraction Tool
+**README**
+
+**Citations Extraction Tool**
+
 This Python program fetches data from a paginated API, identifies citations for each response, and displays the results in a user-friendly interface. The tool is designed to help you understand which sources contributed to the responses retrieved from the API.
 
-Features
-Fetch data from the paginated API endpoint.
-Identify citations for each response based on the provided sources.
-Present the results in a user-friendly interface using Jupyter widgets.
-Display detailed information for selected responses and their corresponding citations.
-Requirements
+**Features**
+
+1. Fetch data from the paginated API endpoint.
+2. Identify citations for each response based on the provided sources.
+3. Present the results in a user-friendly interface using Jupyter widgets.
+4. Display detailed information for selected responses and their corresponding citations.
+   
+**Requirements**
+
 Python 3.x
 requests library
 pandas library
 ipywidgets library
 Jupyter Notebook or JupyterLab
-Installation
-Install the required Python libraries using pip:
 
-bash
-Copy code
-pip install requests pandas ipywidgets
-Ensure you have Jupyter Notebook or JupyterLab installed. If not, install it using pip:
+**Installation**
+1. Install the required Python libraries using pip:
+      "pip install requests pandas ipywidgets"
 
-bash
-Copy code
-pip install notebook
-Usage
-Open Jupyter Notebook or JupyterLab.
+2. Ensure you have Jupyter Notebook or JupyterLab installed. If not, install it using pip:
+      "pip install notebook"
+   
+**Usage**
+1. Open Jupyter Notebook or JupyterLab.
+      "jupyter notebook"
+   
+2. Create a new notebook and copy the provided code into a cell.
 
-bash
-Copy code
-jupyter notebook
-Create a new notebook and copy the provided code into a cell.
+3. Run the cell to execute the program.
 
-Run the cell to execute the program.
-
-Code Explanation
+**Code Explanation**
 1. Fetching Data from the API
 The function get_data retrieves data from the paginated API endpoint. The API URL is set to fetch the first page of data.
 
-python
-Copy code
 import requests
 import pandas as pd
 import ipywidgets as widgets
@@ -53,11 +51,10 @@ def get_data():
         return data
     else:
         print(f"Error: API call failed with status code {response.status_code}")
+
 2. Identifying Citations
 The function identify_citations processes the fetched data to identify citations for each response based on the provided sources.
 
-python
-Copy code
 def identify_citations(data):
     results = []
     for item in data:
@@ -73,11 +70,10 @@ def identify_citations(data):
         
         results.append({"response": response_text, "citations": citations})
     return results
+    
 3. Creating DataFrame for Citations
 The function create_citations_dataframe converts the citations data into a pandas DataFrame for better visualization.
 
-python
-Copy code
 def create_citations_dataframe(citations_data):
     data_for_df = []
     for item in citations_data:
@@ -89,11 +85,10 @@ def create_citations_dataframe(citations_data):
                 "source_link": citation.get("link", "")
             })
     return pd.DataFrame(data_for_df)
+    
 4. Displaying Data with Jupyter Widgets
 The code below creates a user-friendly interface using Jupyter widgets to display the responses and their corresponding citations.
 
-python
-Copy code
 # Convert citations data to DataFrame for better visualization in Jupyter
 citations_data = identify_citations(get_data()['data']['data'])
 citations_df = create_citations_dataframe(citations_data)
